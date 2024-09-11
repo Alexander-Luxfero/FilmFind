@@ -1,15 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-// import App from "./App.jsx";
-// import "./index.css";
-import StarRating from "./StarRating.jsx";
+import App from "./App.jsx";
+import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* <App /> */}
-    <StarRating
+    <App />
+    {/* <StarRating
       defaultRating={5}
       massages={["Terrible", "Bad", "Ok", "Good", "Amazing"]}
-    />
+    /> */}
   </StrictMode>
 );
