@@ -7,7 +7,6 @@ const containerStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  flexDirection: "column",
   gap: "16px",
 };
 
@@ -41,7 +40,7 @@ export default function StarRating({
     lineHeight: "1",
     margin: "0",
     color: { color },
-    fontSize: `${size / 1.8}px`,
+    fontSize: `${size / 1.5}px`,
   };
 
   return (
@@ -64,11 +63,11 @@ export default function StarRating({
         ))}
       </div>
       <p style={textStyle}>
-        {!messages && (hoverIndex !== 0 || rating !== 0)
+        {messages.length === 0 && (hoverIndex !== 0 || rating !== 0)
           ? hoverIndex || rating
-          : messages && rating !== 0
+          : messages.length >= 1 && rating !== 0
           ? messages[Math.round((rating - 2) / 2)]
-          : messages && hoverIndex !== 0
+          : messages.length >= 1 && hoverIndex !== 0
           ? messages[Math.round((hoverIndex - 2) / 2)]
           : ""}
       </p>

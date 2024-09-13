@@ -24,16 +24,22 @@ export default function MovieExibition({
     function () {
       async function getMovieDetails() {
         try {
-          //****************************************************** */
-          let checkRating =
-            watched.filter((item) => item.imdbID === selectedId).userRating ||
-            0;
-          setRating(checkRating);
-          console.log(checkRating);
-          //****************************************************** */
-
           setError("");
           setIsLoading(true);
+
+          //****************************************************** */
+          const watchedMovie = watched.filter(
+            (item) => item.imdbID === selectedId
+          );
+          if (watchedMovie.length >= 1) {
+            console.log(watchedMovie.at(0).userRating);
+            setRating(watchedMovie.at(0).userRating);
+          } else {
+            console.log("set Rating is equal 0");
+            setRating(0);
+          }
+          //****************************************************** */
+
           const res = await fetch(
             `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
           );
@@ -58,12 +64,8 @@ export default function MovieExibition({
 
   function handleAddToWatched() {
     setWatched((prev) => {
-      let isWatched = prev.some((item) => item.imdbID === selectedId);
-      if (isWatched) {
-        return prev.map((item) =>
-          item.imdbID === selectedId ? { ...item, userRating: rating } : item
-        );
-      } else {
+      const watchedMovie = watched.filter((item) => item.imdbID === selectedId);
+      if (watchedMovie.length === 0) {
         return [
           ...prev,
           {
@@ -78,7 +80,6 @@ export default function MovieExibition({
         ];
       }
     });
-    setSelectedId(null);
   }
 
   return (
@@ -116,17 +117,24 @@ export default function MovieExibition({
           </header>
           <div className="details-overview">
             <div className="rating darker">
-              <StarRating
-                size={24}
-                watched={watched}
-                setWatched={setWatched}
-                rating={rating}
-                setRating={setRating}
-              />
+              {watched.filter((item) => item.imdbID === selectedId).length >=
+              1 ? (
+                <em>You reted this movie whith rate {rating}</em>
+              ) : (
+                <>
+                  <StarRating
+                    size={24}
+                    watched={watched}
+                    setWatched={setWatched}
+                    rating={rating}
+                    setRating={setRating}
+                  />
 
-              <button className="btn-add" onClick={handleAddToWatched}>
-                + Add to list
-              </button>
+                  <button className="btn-add" onClick={handleAddToWatched}>
+                    + Add to list
+                  </button>
+                </>
+              )}
             </div>
 
             <em>{md.Plot}</em>
