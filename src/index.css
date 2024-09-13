@@ -341,13 +341,6 @@ body {
 
 .darker {
   background-color: #2b3035;
-  border-radius: 15px;
-  height: 60px;
-  padding: 18px;
-}
-.darker > div {
-  position: relative;
-  top: 6px;
 }
 
 /*

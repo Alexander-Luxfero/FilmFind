@@ -6,9 +6,5 @@ import "./index.css";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
-    {/* <StarRating
-      defaultRating={5}
-      massages={["Terrible", "Bad", "Ok", "Good", "Amazing"]}
-    /> */}
   </StrictMode>
 );

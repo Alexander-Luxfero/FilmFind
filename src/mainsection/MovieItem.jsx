@@ -4,9 +4,11 @@ export default function MovieItem({
   Poster,
   Title,
   Year,
+
   imdbRating,
   userRating,
   runtime,
+
   isNotWatched,
   selectedId,
   setSelectedId,

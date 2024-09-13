@@ -32,15 +32,15 @@ export default function StarRating({
   size = 48,
   className = "",
   messages = [],
-  defaultRating = 0,
+  rating,
+  setRating,
 }) {
   const [hoverIndex, setHoverIndex] = useState(0);
-  const [rating, setRating] = useState(defaultRating);
 
   const textStyle = {
     lineHeight: "1",
     margin: "0",
-    color,
+    color: { color },
     fontSize: `${size / 1.8}px`,
   };
 
@@ -65,7 +65,7 @@ export default function StarRating({
       </div>
       <p style={textStyle}>
         {!messages && (hoverIndex !== 0 || rating !== 0)
-          ? (hoverIndex || rating) + "/" + maxRaiting
+          ? hoverIndex || rating
           : messages && rating !== 0
           ? messages[Math.round((rating - 2) / 2)]
           : messages && hoverIndex !== 0
