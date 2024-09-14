@@ -6,6 +6,7 @@ export default function MovieList({
   isNotWatched,
   selectedId,
   setSelectedId,
+  setWatched,
 }) {
   return (
     <ul className="list">
@@ -17,6 +18,7 @@ export default function MovieList({
           isNotWatched={isNotWatched}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
+          setWatched={setWatched}
         />
       ))}
     </ul>

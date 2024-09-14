@@ -6,7 +6,9 @@ export default function WatchedMovieSummary({ watched }) {
   const avgImdbRating = average(
     watched.map((movie) => movie.imdbRating)
   ).toFixed(1);
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
+  const avgUserRating = average(
+    watched.map((movie) => movie.userRating)
+  ).toFixed(1);
   const avgRuntime = Math.round(average(watched.map((movie) => movie.runtime)));
 
   return (

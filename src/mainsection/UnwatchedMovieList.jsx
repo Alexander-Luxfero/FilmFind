@@ -20,6 +20,8 @@ export default function UnwatchedMovieList({
 
   useEffect(
     function () {
+      const controller = new AbortController();
+
       async function fatchMovies() {
         try {
           setError("");
@@ -27,7 +29,8 @@ export default function UnwatchedMovieList({
 
           //if ok, go further and fatching data
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${querySearch}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${querySearch}`,
+            { signal: controller.signal }
           );
 
           //Check if everything ok, and if not throw error
@@ -45,7 +48,9 @@ export default function UnwatchedMovieList({
           setMovies(data.Search);
         } catch (err) {
           console.error(err.message);
-          setError(err.message);
+          if (err.name !== "Abort") {
+            setError(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -59,6 +64,10 @@ export default function UnwatchedMovieList({
       }
 
       fatchMovies();
+
+      return function () {
+        controller.abort();
+      };
     },
     [querySearch]
   );

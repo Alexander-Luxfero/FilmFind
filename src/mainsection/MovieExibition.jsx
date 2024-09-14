@@ -48,6 +48,9 @@ export default function MovieExibition({
           const data = await res.json();
 
           console.log(data);
+          //It's easier and cleaner to add it here bacause we sat this walue only at atantion,
+          //second "Normal" part located in App.jsx
+          document.title = `Movie | ${data.Title}`;
           setMovieDetails(data);
         } catch (error) {
           console.error(error);
@@ -58,14 +61,19 @@ export default function MovieExibition({
       }
 
       getMovieDetails();
+
+      return function () {
+        document.title = "usePopcorn";
+      };
     },
-    [selectedId]
+    [selectedId, watched]
   );
 
   function handleAddToWatched() {
     setWatched((prev) => {
       const watchedMovie = watched.filter((item) => item.imdbID === selectedId);
       if (watchedMovie.length === 0) {
+        setSelectedId(null);
         return [
           ...prev,
           {
@@ -81,6 +89,20 @@ export default function MovieExibition({
       }
     });
   }
+
+  useEffect(
+    function () {
+      const callback = (e) => e.code === "Escape" && setSelectedId(null);
+      if (selectedId !== null) {
+        document.addEventListener("keydown", callback);
+
+        return function () {
+          document.removeEventListener("keydown", callback);
+        };
+      }
+    },
+    [selectedId]
+  );
 
   return (
     <div key={selectedId} className="details">

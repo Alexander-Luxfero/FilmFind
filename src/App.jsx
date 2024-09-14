@@ -55,6 +55,7 @@ export default function App() {
                 isNotWatched={false}
                 selectedId={selectedId}
                 setSelectedId={setSelectedId}
+                setWatched={setWatched}
               />
             </>
           )}

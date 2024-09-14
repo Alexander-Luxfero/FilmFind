@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+//import { useEffect } from "react";
+
 export default function MovieItem({
   imdbID,
   Poster,
@@ -12,7 +14,18 @@ export default function MovieItem({
   isNotWatched,
   selectedId,
   setSelectedId,
+
+  setWatched,
 }) {
+  // useEffect(
+  //   function () {
+  //     if (selectedId === imdbID) {
+  //       document.title = `Movie | ${Title}`;
+  //     }
+  //   },
+  //   [selectedId]
+  // );
+
   return (
     <li
       onClick={() =>
@@ -42,6 +55,17 @@ export default function MovieItem({
             <span>⏳</span>
             <span>{runtime} min</span>
           </p>
+          <button
+            className="btn-delete"
+            onClick={() => {
+              setWatched((prev) =>
+                prev.filter((item) => item.imdbID !== imdbID)
+              );
+              setSelectedId(null);
+            }}
+          >
+            X
+          </button>
         </div>
       )}
     </li>
