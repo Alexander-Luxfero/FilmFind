@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Loading from "./Loading";
 import StarRating from "../stars/StarRating";
 import ErrorMessage from "./ErrorMessage";
+import { useKey } from "../useKey";
 
 //KEY for fatching movie data
 const KEY = "15448fa5";
@@ -19,6 +20,12 @@ export default function MovieExibition({
   const [error, setError] = useState("");
 
   const [rating, setRating] = useState(0);
+
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    if (rating) countRef.current++;
+  }, [rating]);
 
   useEffect(
     function () {
@@ -70,39 +77,44 @@ export default function MovieExibition({
   );
 
   function handleAddToWatched() {
+    const newMovie = {
+      imdbID: md.imdbID,
+      Title: md.Title,
+      Year: md.Year,
+      Poster: md.Poster,
+      runtime: Number(md.Runtime.split(" ")[0]),
+      imdbRating: Number(md.imdbRating),
+      userRating: rating,
+      countRatingDecigion: countRef.current,
+    };
     setWatched((prev) => {
       const watchedMovie = watched.filter((item) => item.imdbID === selectedId);
       if (watchedMovie.length === 0) {
         setSelectedId(null);
-        return [
-          ...prev,
-          {
-            imdbID: md.imdbID,
-            Title: md.Title,
-            Year: md.Year,
-            Poster: md.Poster,
-            runtime: Number(md.Runtime.split(" ")[0]),
-            imdbRating: Number(md.imdbRating),
-            userRating: rating,
-          },
-        ];
+        return [...prev, newMovie];
       }
     });
   }
 
-  useEffect(
-    function () {
-      const callback = (e) => e.code === "Escape" && setSelectedId(null);
-      if (selectedId !== null) {
-        document.addEventListener("keydown", callback);
+  function onClose() {
+    return selectedId(null);
+  }
 
-        return function () {
-          document.removeEventListener("keydown", callback);
-        };
-      }
-    },
-    [selectedId]
-  );
+  useKey("Escape", onClose);
+
+  // useEffect(
+  //   function () {
+  //     const callback = (e) => e.code === "Escape" && setSelectedId(null);
+  //     if (selectedId !== null) {
+  //       document.addEventListener("keydown", callback);
+
+  //       return function () {
+  //         document.removeEventListener("keydown", callback);
+  //       };
+  //     }
+  //   },
+  //   [selectedId]
+  // );
 
   return (
     <div key={selectedId} className="details">

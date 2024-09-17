@@ -1,22 +1,15 @@
-/* eslint-disable react/prop-types */
+/*Due to unequality of codes in lecture and in my project, 
+make this custom hook is currently to difficult, and takes tooo much time
+*/
 import { useState, useEffect } from "react";
-import MovieList from "./MovieList";
-import Loading from "./Loading";
-import ErrorMessage from "./ErrorMessage";
-// import { useFatchMovies } from "../useFatchMovies";
 
 //KEY for fatching movie data
 const KEY = "15448fa5";
 
-export default function UnwatchedMovieList({
-  querySearch,
-  movies,
-  setMovies,
-  selectedId,
-  setSelectedId,
-}) {
-  // const { error, isLoading, movies } = useFatchMovies(setMovies, querySearch);
-
+//Function taken from UnwatchedMovieList.jsx, and not prepared
+//to insert in another parts without preparation
+export function useFatchMovies({ querySearch, moviesItems }) {
+  const [movies, setMovies] = useState(moviesItems);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -71,21 +64,8 @@ export default function UnwatchedMovieList({
         controller.abort();
       };
     },
-    [querySearch]
+    [querySearch, setMovies]
   );
 
-  return (
-    <>
-      {isLoading && <Loading />}
-      {error && <ErrorMessage message={error} />}
-      {!isLoading && !error && (
-        <MovieList
-          movies={movies}
-          isNotWatched={true}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-        />
-      )}
-    </>
-  );
+  return { isLoading, error, movies };
 }
