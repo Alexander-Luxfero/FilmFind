@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Loading from "./Loading";
 import StarRating from "../stars/StarRating";
 import ErrorMessage from "./ErrorMessage";
-import { useKey } from "../useKey";
+import { useKey } from "../../hooks/useKey";
 
 //KEY for fatching movie data
 const KEY = "15448fa5";

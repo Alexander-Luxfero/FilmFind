@@ -2,19 +2,20 @@ import { useState } from "react";
 // import { tempMovieData } from "./tempMovieData";
 // import { tempWatchedData } from "./tempWatchedData";
 
-import NavBar from "./navbar/NavBar";
-import MainSection from "./mainsection/MainSection";
+import NavBar from "./components/navbar/NavBar.jsx";
+import MainSection from "./components/mainsection/MainSection";
 //Components of navigation bar
-import Search from "./navbar/Search";
-import Logo from "./navbar/Logo";
-import MoviesCounter from "./navbar/MoviesCounter";
+import Search from "./components/navbar/Search.jsx";
+import Logo from "./components/navbar/Logo.jsx";
+import MoviesCounter from "./components/navbar/MoviesCounter.jsx";
 //Components for main section
-import ContentBox from "./mainsection/ContentBox";
-import MovieList from "./mainsection/MovieList.jsx";
-import WatchedMovieSummary from "./mainsection/WatchedMovieSummary";
-import MovieExibition from "./mainsection/MovieExibition.jsx";
-import UnwatchedMovieList from "./mainsection/UnwatchedMovieList.jsx";
-import { useLockalStorage } from "./useLockalStorage.js";
+import ContentBox from "./components/mainsection/ContentBox";
+import MovieList from "./components/mainsection/MovieList.jsx";
+import WatchedMovieSummary from "./components/mainsection/WatchedMovieSummary";
+import MovieExibition from "./components/mainsection/MovieExibition.jsx";
+import UnwatchedMovieList from "./components/mainsection/UnwatchedMovieList.jsx";
+//hooks
+import { useLockalStorage } from "./hooks/useLockalStorage.js";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
@@ -23,19 +24,6 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(null);
 
   const [watched, setWatched] = useLockalStorage([], "watched");
-
-  // // const [watched, setWatched] = useState([]);
-  // const [watched, setWatched] = useState(function () {
-  //   const storedValue = localStorage.getItem("watched");
-  //   return JSON.parse(storedValue);
-  // });
-
-  // useEffect(
-  //   function () {
-  //     localStorage.setItem("watched", JSON.stringify(watched));
-  //   },
-  //   [watched]
-  // );
 
   return (
     <>
