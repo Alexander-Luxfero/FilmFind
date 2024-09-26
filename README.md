@@ -1,8 +1,7 @@
-# React + Vite
+# Simple study project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This basic study project created for practice basics scills, as:
+ 1) Create and use most common hooks as useState, useEffect
+ 2) Create simple custom hooks
+ 3) Practice in create components and structuring project
+ 4) etc.
